@@ -5,7 +5,7 @@ import sys
 b_debug = 0 
 
 def doIt(s):
-    print "%s\t=>\t%s"%(s,numWithCommas(s))
+    print("%s\t=>\t%s"%(s,numWithCommas(s)))
 
 def testNumWithCommas():
     for i in [0,1,12,123,1234,12345,123456,1234567,12345678,123456789]:
@@ -23,13 +23,13 @@ def numWithCommas(x):
     sWho = "numWithCommas"
 
     if b_debug:
-        print sWho + "(): A: x = " + str(x)
-        print sWho + "(): A: type(x) = ", type(x)
+        print(sWho + "(): A: x = " + str(x))
+        print(sWho + "(): A: type(x) = ", type(x))
 
     x_str = str(x);
 
     if b_debug:
-        print sWho + "(): A: x_str = \"" + x_str + "\""
+        print(sWho + "(): A: x_str = \"" + x_str + "\"")
 
     prefix = ""
 
@@ -41,8 +41,8 @@ def numWithCommas(x):
         x_str = x_str[1:]; 
 
     if b_debug:
-        print sWho + "(): B: prefix = \"" + prefix + "\""
-        print sWho + "(): B: x_str = \"" + x_str + "\""
+        print(sWho + "(): B: prefix = \"" + prefix + "\"")
+        print(sWho + "(): B: x_str = \"" + x_str + "\"")
 
     #if x < 0:
     #    suffix = "-"
@@ -56,13 +56,13 @@ def numWithCommas(x):
         x_str = x_str [ 0 : i_where ]
 
     if b_debug:
-        print sWho + "(): C: right = \"" + right + "\""
-        print sWho + "(): C: x_str = \"" + x_str + "\""
+        print(sWho + "(): C: right = \"" + right + "\"")
+        print(sWho + "(): C: x_str = \"" + x_str + "\"")
      
     x = int(x_str)
 
     if b_debug:
-        print sWho + "(): D: x = \"" + str(x) + "\""
+        print(sWho + "(): D: x = \"" + str(x) + "\"")
 
     result = ''
     while x >= 1000:
@@ -70,29 +70,30 @@ def numWithCommas(x):
         result = ",%03d%s" % (r, result)
 
     if b_debug:
-        print sWho + "(): E: x = " + str(x) 
-        print sWho + "(): E: result = \"" + result + "\""
+        print(sWho + "(): E: x = " + str(x))
+        print(sWho + "(): E: result = \"" + result + "\"")
 
     s_return = "%s%d%s%s" % (prefix, x, result, right)
 
     if b_debug:
-        print sWho + "(): F: s_return = \"" + s_return + "\""
+        print(sWho + "(): F: s_return = \"" + s_return + "\"")
 
     return s_return
 
 # https://stackoverflow.com/questions/1823058/how-to-print-number-with-commas-as-thousands-separators
-def intWithCommas(x):
-    if type(x) not in [type(0), type(0L)]:
-        raise TypeError("Parameter must be an integer.")
-    if x < 0:
-        return '-' + intWithCommas(-x)
-    result = ''
-    while x >= 1000:
-        x, r = divmod(x, 1000)
-        result = ",%03d%s" % (r, result)
-    return "%d%s" % (x, result)
+#def intWithCommas(x):
+#    if type(x) not in [type(0), type(0L)]:
+#        raise TypeError("Parameter must be an integer.")
+#    if x < 0:
+#        return '-' + intWithCommas(-x)
+#    result = ''
+#    while x >= 1000:
+#        x, r = divmod(x, 1000)
+#        result = ",%03d%s" % (r, result)
+#    return "%d%s" % (x, result)
 
-print 'Number of arguments:', len(sys.argv), 'arguments.'
+# main #
+print('Number of arguments:', len(sys.argv), 'arguments.')
 
 b_test = 0
 PV = 0.0
@@ -100,7 +101,7 @@ F = 0.0
 N = 0
 for i in range(1, len(sys.argv)):
     # i is a number, from 1 to len(sys.argv)-1
-    print "sys.argv[%d] = \"%s\"" % (i, sys.argv[i])
+    print("sys.argv[%d] = \"%s\"" % (i, sys.argv[i]))
     if sys.argv[i] == "-pv":
         i += 1
         PV = float(sys.argv[i])
@@ -119,10 +120,10 @@ for i in range(1, len(sys.argv)):
 #F = float(sys.argv[2])
 #N = int(sys.argv[3])
 
-print "PV = %f" % (PV)
-print "N = %d" % (N)
-print "F = %f" % (F)
-print "b_test = %d" % (b_test)
+print("PV = %f" % (PV))
+print("N = %d" % (N))
+print("F = %f" % (F))
+print("b_test = %d" % (b_test))
 
 if( b_test ):
     testNumWithCommas();
@@ -131,6 +132,6 @@ if( b_test ):
 FV = PV
 for i in range( 1, N):
     FV *= F
-    print "i = %d: FV = %s" % (i, numWithCommas("%13.2f" % (FV)))
+    print("i = %d: FV = %15s" % (i, numWithCommas("%.2f" % (FV))))
     #print "i = %d: FV = %13.2f" % (i, FV)
     #print "i = %d: FV = %s" % (i, locale.format("%f", FV, grouping=True))
