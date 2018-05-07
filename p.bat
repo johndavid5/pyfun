@@ -4,4 +4,5 @@ REM py split_thousands.py 2>&1 | tee p.out
 REM py compound.py -test
 REM 100 months, 10% per month...
 REM py compound.py -pv 20000 -f "1.10" -n 10 2>&1 | tee p.out
-py tcalc.py <tcalc.inp
+REM py tcalc.py -c "10:32:13-9:07:13" 2>&1 | tee p.out
+py tcalc.py -dbg 1 <tcalc.inp

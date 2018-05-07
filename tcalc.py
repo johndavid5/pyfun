@@ -1,4 +1,5 @@
 import sys
+import string
 import re
 import json
 import logging
@@ -15,6 +16,8 @@ VIA_COMMAND_LINE = False
 #logger.setLevel(logging.DEBUG)
 
 #logging.basicConfig(filename='tcalc.log',level=logging.DEBUG)
+
+VERSION="1.1.0"
 
 def main():
 
@@ -39,6 +42,7 @@ def main():
 
     print("DEBUG="+str(DEBUG))
     print("VIA_COMMAND_LINE="+str(VIA_COMMAND_LINE))
+    print("VERSION="+str(VERSION))
 
     if VIA_COMMAND_LINE:
         exit(0)
@@ -49,8 +53,15 @@ def main():
         #line = sys.stdin.readline()
         try:
             s_line = input("tcalc>");
+            s_line = trim_comments(s_line)
+            s_line = s_line.strip() # That's trim() in the rest of the world...
+
             if( s_line == "quit" ): 
                 break
+
+            if len(s_line) <= 0: 
+                next
+
             print("+ " + s_line + " = " + do_line(s_line));
         except EOFError as error:
             # Output expected EOFErrors.
@@ -121,11 +132,19 @@ def do_line(s_line):
 
         debug_print(sWho + "(): SHEMP: Moe, tot_seconds_c = %d..." % tot_seconds_c )
 
+        s_prefix = ""
+        i_multiplier = 1
+        if tot_seconds_c < 0: 
+            s_prefix = "-"
+            i_multiplier = -1
+            tot_seconds_c *= -1
+
         out_map = s_to_hms(tot_seconds_c) 
         debug_print(sWho + "(): SHEMP: Moe, out_map = " + json.dumps(out_map) + "...")
         
         #s_out = "%d:%02d:%02d" % str(out_map['hours']) + ":" + str(out_map['minutes']) + ":" + str(out_map['seconds'])
-        s_out = "%d:%02d:%02d" % (out_map['hours'], out_map['minutes'], out_map['seconds'] )
+        s_out = "%s%d:%02d:%02d" % (s_prefix, out_map['hours'], out_map['minutes'], out_map['seconds'] )
+        s_out += " = %d seconds" % (tot_seconds_c*i_multiplier)
 
     else:
         debug_print(sWho + "(): SHEMP: Sorry, Moe, no match...");
@@ -173,6 +192,12 @@ def s_to_hms(total_seconds):
     total_seconds = total_seconds % SECONDS_PER_MINUTE
     out_map['seconds'] = total_seconds
     return out_map
+
+def trim_comments(s_line):
+    i_where = s_line.find("#") 
+    # NOTA: This Also works for failed find, because 
+    # i_where is -1 in that case...
+    return s_line[i_where+1:] 
 
 # Automatically kick-start main()...
 # https://stackoverflow.com/questions/1590608/is-it-possible-to-forward-declare-a-function-in-python
