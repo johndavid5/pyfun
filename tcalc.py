@@ -18,7 +18,8 @@ VIA_COMMAND_LINE = False
 #logging.basicConfig(filename='tcalc.log',level=logging.DEBUG)
 
 VERSION="1.1.0"
-
+# ToDo: add -help
+#       commify the total seconds (via utils.py module)...
 def main():
 
     s_line = ""
