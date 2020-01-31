@@ -23,10 +23,10 @@ g = 32.0 # ft/sec^2 -- The acceleration of gravity at or near the Earth's surfac
 
 i = 0
 for arg in sys.argv:
-	print "argv[" , i , "] = " + sys.argv[i] ; 
+	print("argv[%d] = \"%s\"" % ( i , sys.argv[i] ) ) 
 	i += 1
 
-print ""
+print ("")
 
 for i in range( 1, len(sys.argv)-1 ):
 	if sys.argv[i] == "-ts": 
@@ -39,19 +39,19 @@ for i in range( 1, len(sys.argv)-1 ):
 		i += 1;
 		velocity = float(sys.argv[i])
 
-print "time_step = ", time_step, " seconds" 
-print "angle_degrees = ", angle_degrees, " degrees"
-print "type(angle_degrees) = ", type(angle_degrees)
-print "velocity = ", velocity, " feet/second"
+print("time_step = ", time_step, " seconds" )
+print("angle_degrees = ", angle_degrees, " degrees" )
+print("type(angle_degrees) = ", type(angle_degrees) )
+print("velocity = ", velocity, " feet/second" )
 
 angle_radians = degrees_to_radians( angle_degrees )
-print "angle_radians = ", angle_radians, " radians"
+print("angle_radians = ", angle_radians, " radians")
 
 vy0 = velocity * math.sin( angle_radians )
 vx0 = velocity * math.cos( angle_radians )
 
-print "vx0 = ", vx0, " feet/second"
-print "vy0 = ", vy0, " feet/second"
+print("vx0 = ", vx0, " feet/second")
+print("vy0 = ", vy0, " feet/second")
 
 vy = vy0
 vx = vx0
@@ -62,11 +62,11 @@ t = 0.0
 i_count = 0
 i_max_count = 1000
 
-print "N","\t","t","\t","x","\t","y","\t","vx","\t","vy"
+#print("N","\t","t","\t","x","\t","y","\t","vx","\t","vy")
+print("N"+"\t"+"t"+"\t"+"x"+"\t"+"y"+"\t"+"v_x"+"\t"+"v_y")
 
 while True:  
 	i_count += 1
-
 
 	# v_y(t) = v_y_0 - gt
 	vy = vy0 - g * t;
@@ -75,7 +75,10 @@ while True:
 
 	x = vx * t;
 	
-	print i_count,"\t",t,"\t",x,"\t",y,"\t",vx,"\t",vy
+	#print(i_count,"\t",t,"\t",x,"\t",y,"\t",vx,"\t",vy)
+	#print("%d"+"\t"+"%f"+"\t"+"%f"+"\t"+"%f"+"\t"+"%f"+"\t"+"%f" % (i_count, t, x, y, vx, vy) ) 
+	#print("%d\t%f\t%f\t%f\t%f\t%f" % (i_count, t, x, y, vx, vy) ) 
+	print("N=%d\tt=%f\tx=%f\ty=%f\tv_x=%f\tv_y=%f" % (i_count, t, x, y, vx, vy) ) 
 
 	if y < 0:
 		break
