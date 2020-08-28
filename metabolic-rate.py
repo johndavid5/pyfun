@@ -29,10 +29,12 @@ PAL_VIGOROUS=float(2.25)
 
 def main(options):
 
-    print(options.__dict__)
-    DEBUG=options.debug
+    def debug_print(input):
+        if options.debug:
+            print(input)
 
-    print(f'DEBUG = {DEBUG}...')
+    debug_print(options.__dict__)
+
     print(f'PAL_SEDENTARY = {PAL_SEDENTARY}...')
     print(f'PAL_ACTIVE = {PAL_ACTIVE}...')
     print(f'PAL_VIGOROUS = {PAL_VIGOROUS}...')
@@ -46,12 +48,12 @@ def main(options):
     if not options.height_cm:
         options.height_cm = inches_to_centimeters(options.height_in)
 
+    print(f'age = {options.age}...')
     print(f'sex = {options.sex}...')
-    print(f'Weight (lb) = {options.weight_lb}...')
-    print(f'Weight (kg) = {options.weight_kg}...')
     print(f'Height (in) = {options.height_in}...')
     print(f'Height (cm) = {options.height_cm}...')
-    print(f'age = {options.age}...')
+    print(f'Weight (lb) = {options.weight_lb}...')
+    print(f'Weight (kg) = {options.weight_kg}...')
 
     bmr = int(basal_metabolic_rate(options.weight_kg, options.height_cm, options.age, options.sex))
 
